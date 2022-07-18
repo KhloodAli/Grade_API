@@ -15,13 +15,11 @@ app.use(fileUpload({ useTempFiles: true }));
 //connect db
 const connectDB = require("./db/connect");
 
-
-
 //routes
 
-app.get('/',(req,res)=>{
-    res.send("Home Of Backend")
-})
+app.get("/", (req, res) => {
+  res.send("Khloud Ali");
+});
 
 app.use("/api/v1", require("./routes/patient"));
 app.use("/api/v1", require("./routes/rays"));
