@@ -18,7 +18,7 @@ const connectDB = require("./db/connect");
 //routes
 
 app.get("/", (req, res) => {
-  res.send("welcome ");
+  res.send("welcome!!");
 });
 
 app.use("/api/v1", require("./routes/patient"));
