@@ -1,6 +1,7 @@
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const DoctorModel = require("../models/doctorModel");
+const cloudinary = require("cloudinary");
 
 const getAllDoctor = async (req, res) => {
   const allDoc = await DoctorModel.find();
@@ -14,6 +15,11 @@ const getAllDoctor = async (req, res) => {
 
 const registerDoctor = async (req, res) => {
   try {
+    const myCloud = await cloudinary.v2.uploader.upload(req.body.avatar, {
+      folder: "test",
+      width: 150,
+      crop: "scale",
+    });
     const {
       name,
       email,
@@ -48,6 +54,10 @@ const registerDoctor = async (req, res) => {
       city_id,
       password: passwordHash,
       patient,
+      avatar: {
+        public_id: myCloud.public_id,
+        url: myCloud.secure_url,
+      },
     });
     const accesstoken = createAccessToken({ id: newUser._id });
     //To Save In DB U Can USed Create But this is anthor way
@@ -74,7 +84,9 @@ const login = async (req, res) => {
     //if login success create access Token And Refresh Token
     // create JWT For Authentication
     const accesstoken = createAccessToken({ id: user._id });
-    res.status(200).json({ accesstoken });
+    console.log(user);
+    res.status(200).json({ accesstoken, user });
+
   } catch (error) {
     return res.status(500).json({ msg: error.message });
   }
