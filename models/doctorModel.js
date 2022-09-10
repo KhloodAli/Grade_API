@@ -10,14 +10,16 @@ const DoctorSchema = mongoose.Schema({
   price: { type: String, trim: true, required: true },
   specialize: { type: String, trim: true, required: true },
   about: { type: String, trim: true, required: true },
+
   avatar: {
     public_id: {
       type: String,
-      default:"unknow user"
+      default: "unknow user",
     },
     url: {
       type: String,
-      default:"https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg",
+      default:
+        "https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg",
     },
   },
   //image: { type: String, trim: true, required: true, default: "" },
